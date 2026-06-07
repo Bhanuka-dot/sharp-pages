@@ -22,463 +22,140 @@
       --match-med-border: #dd6b20;
       --match-low: #d69e2e22;
       --match-low-border: #d69e2e;
-      --safe: #38a16922;
-      --safe-border: #38a169;
       --radius: 8px;
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--paper);
-      color: var(--ink);
-      min-height: 100vh;
-    }
-
+    body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; }
     header {
-      background: var(--ink);
-      color: var(--paper);
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 56px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      background: var(--ink); color: var(--paper); padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px; position: sticky; top: 0; z-index: 100;
     }
-
-    header .brand {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.2rem;
-      letter-spacing: 0.01em;
-    }
-
+    header .brand { font-family: 'DM Serif Display', serif; font-size: 1.2rem; }
     header .brand span { color: var(--accent); }
-
     header .tag {
-      font-size: 0.75rem;
-      font-weight: 500;
-      background: var(--accent);
-      color: white;
-      padding: 3px 10px;
-      border-radius: 20px;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      font-size: 0.75rem; font-weight: 600; background: var(--accent);
+      color: white; padding: 3px 10px; border-radius: 20px;
+      letter-spacing: 0.05em; text-transform: uppercase;
     }
-
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem 4rem;
-    }
-
-    h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2rem;
-      margin-bottom: 0.4rem;
-      line-height: 1.2;
-    }
-
-    .subtitle {
-      color: var(--muted);
-      font-size: 0.95rem;
-      margin-bottom: 2rem;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-
+    .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+    h1 { font-family: 'DM Serif Display', serif; font-size: 2rem; margin-bottom: 0.4rem; }
+    .subtitle { color: var(--muted); font-size: 0.95rem; margin-bottom: 2rem; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
     @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
-
-    .card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
-
+    .card { background: white; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
     .card-header {
-      background: var(--paper-dark);
-      border-bottom: 1px solid var(--border);
-      padding: 0.75rem 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      background: var(--paper-dark); border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1rem; display: flex; align-items: center; justify-content: space-between;
     }
-
-    .card-header h2 {
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--muted);
-    }
-
-    .char-count {
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-
+    .card-header h2 { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+    .char-count { font-size: 0.75rem; color: var(--muted); }
     textarea {
-      width: 100%;
-      padding: 1rem;
-      border: none;
-      outline: none;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
-      line-height: 1.65;
-      color: var(--ink);
-      background: white;
-      resize: vertical;
-      min-height: 260px;
+      width: 100%; padding: 1rem; border: none; outline: none;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; line-height: 1.65;
+      color: var(--ink); background: white; resize: vertical; min-height: 260px;
     }
-
-    .sources-list {
-      padding: 0.75rem 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      max-height: 320px;
-      overflow-y: auto;
-    }
-
-    .source-item {
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-
-    .source-item-header {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .source-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      flex: 1;
-    }
-
-    .source-item textarea {
-      min-height: 90px;
-      font-size: 0.82rem;
-      padding: 0.6rem 0.75rem;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      background: var(--paper);
-    }
-
+    .sources-list { padding: 0.75rem 1rem; display: flex; flex-direction: column; gap: 0.5rem; max-height: 320px; overflow-y: auto; }
+    .source-item { display: flex; flex-direction: column; gap: 0.35rem; }
+    .source-item-header { display: flex; align-items: center; gap: 0.5rem; }
+    .source-label { font-size: 0.75rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; flex: 1; }
+    .source-item textarea { min-height: 90px; font-size: 0.82rem; padding: 0.6rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; background: var(--paper); }
     .source-item textarea:focus { border-color: var(--accent); background: white; }
-
     .source-name-input {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.8rem;
-      padding: 4px 8px;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      background: var(--paper);
-      color: var(--ink);
-      outline: none;
-      flex: 1;
+      font-family: 'DM Sans', sans-serif; font-size: 0.8rem; padding: 4px 8px;
+      border: 1px solid var(--border); border-radius: 4px; background: var(--paper);
+      color: var(--ink); outline: none; flex: 1;
     }
-
     .source-name-input:focus { border-color: var(--accent); }
-
     .btn-remove {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: var(--muted);
-      font-size: 1.1rem;
-      line-height: 1;
-      padding: 2px 4px;
-      border-radius: 4px;
-      transition: color 0.15s, background 0.15s;
+      background: none; border: none; cursor: pointer; color: var(--muted);
+      font-size: 1.1rem; line-height: 1; padding: 2px 4px; border-radius: 4px; transition: color 0.15s, background 0.15s;
     }
-
     .btn-remove:hover { color: #e53e3e; background: #fee2e2; }
-
-    .card-footer {
-      border-top: 1px solid var(--border);
-      padding: 0.6rem 1rem;
-      display: flex;
-      gap: 0.5rem;
-    }
-
+    .card-footer { border-top: 1px solid var(--border); padding: 0.6rem 1rem; display: flex; gap: 0.5rem; }
     .btn {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 500;
-      padding: 6px 14px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      cursor: pointer;
-      transition: all 0.15s;
-      background: white;
-      color: var(--ink);
+      font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500;
+      padding: 6px 14px; border-radius: 6px; border: 1px solid var(--border);
+      cursor: pointer; transition: all 0.15s; background: white; color: var(--ink);
     }
-
     .btn:hover { background: var(--paper-dark); }
-
     .btn-primary {
-      background: var(--accent);
-      border-color: var(--accent-dark);
-      color: white;
-      font-size: 0.95rem;
-      padding: 10px 28px;
+      background: var(--accent); border-color: var(--accent-dark); color: white;
+      font-size: 0.95rem; padding: 10px 28px;
     }
-
     .btn-primary:hover { background: var(--accent-dark); }
     .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-
-    .actions {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
+    .btn-green {
+      background: #38a169; border-color: #276749; color: white;
+      font-size: 0.95rem; padding: 10px 28px;
     }
-
-    .options {
-      display: flex;
-      gap: 1.25rem;
-      flex-wrap: wrap;
-    }
-
-    .option-label {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.85rem;
-      color: var(--muted);
-      cursor: pointer;
-      user-select: none;
-    }
-
+    .btn-green:hover { background: #276749; }
+    .actions { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .options { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    .option-label { display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; color: var(--muted); cursor: pointer; user-select: none; }
     .option-label input[type=checkbox] { accent-color: var(--accent); cursor: pointer; }
-
-    /* Results */
     #results { display: none; }
-
-    .score-row {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .score-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.2rem 1.5rem;
-      flex: 1;
-      min-width: 150px;
-    }
-
-    .score-card .label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--muted);
-      margin-bottom: 0.35rem;
-    }
-
-    .score-card .value {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2.2rem;
-      line-height: 1;
-    }
-
-    .score-card .detail {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-top: 0.25rem;
-    }
-
+    #rewriteSection { display: none; margin-top: 1.5rem; }
+    .score-row { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .score-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem 1.5rem; flex: 1; min-width: 150px; }
+    .score-card .label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.35rem; }
+    .score-card .value { font-family: 'DM Serif Display', serif; font-size: 2.2rem; line-height: 1; }
+    .score-card .detail { font-size: 0.78rem; color: var(--muted); margin-top: 0.25rem; }
     .score-risk-low .value { color: #38a169; }
     .score-risk-med .value { color: #dd6b20; }
     .score-risk-high .value { color: #e53e3e; }
-
-    .risk-badge {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      padding: 3px 9px;
-      border-radius: 20px;
-      margin-top: 0.4rem;
-    }
-
+    .risk-badge { display: inline-block; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; padding: 3px 9px; border-radius: 20px; margin-top: 0.4rem; }
     .risk-low  { background: #c6f6d5; color: #276749; }
     .risk-med  { background: #feebc8; color: #7b341e; }
     .risk-high { background: #fed7d7; color: #742a2a; }
-
-    .result-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      margin-bottom: 1.5rem;
-    }
-
+    .result-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 1.5rem; }
     .result-card-header {
-      background: var(--paper-dark);
-      border-bottom: 1px solid var(--border);
-      padding: 0.75rem 1.25rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
-      flex-wrap: wrap;
+      background: var(--paper-dark); border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;
     }
-
-    .result-card-header h3 {
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--muted);
-    }
-
-    .highlighted-text {
-      padding: 1.25rem;
-      font-size: 0.9rem;
-      line-height: 1.8;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
-    mark {
-      padding: 1px 0;
-      border-radius: 2px;
-      cursor: pointer;
-      position: relative;
-    }
-
+    .result-card-header h3 { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+    .highlighted-text { padding: 1.25rem; font-size: 0.9rem; line-height: 1.8; white-space: pre-wrap; word-break: break-word; }
+    mark { padding: 1px 0; border-radius: 2px; cursor: pointer; }
     mark.high { background: var(--match-high); border-bottom: 2px solid var(--match-high-border); }
     mark.med  { background: var(--match-med);  border-bottom: 2px solid var(--match-med-border); }
     mark.low  { background: var(--match-low);  border-bottom: 2px solid var(--match-low-border); }
-
-    .source-breakdown {
-      padding: 0 1.25rem 1.25rem;
-    }
-
-    .source-row {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.6rem 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.85rem;
-    }
-
+    .source-breakdown { padding: 0 1.25rem 1.25rem; }
+    .source-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
     .source-row:last-child { border-bottom: none; }
-
     .source-name { flex: 1; font-weight: 500; }
-
-    .progress-bar {
-      flex: 2;
-      height: 8px;
-      background: var(--paper-dark);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      border-radius: 4px;
-      transition: width 0.5s ease;
-    }
-
+    .progress-bar { flex: 2; height: 8px; background: var(--paper-dark); border-radius: 4px; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
     .pct { font-size: 0.82rem; font-weight: 600; min-width: 38px; text-align: right; }
-
-    .legend {
-      display: flex;
-      gap: 1.25rem;
-      padding: 0.75rem 1.25rem;
-      border-top: 1px solid var(--border);
-      flex-wrap: wrap;
-    }
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .legend-dot {
-      width: 10px; height: 10px;
-      border-radius: 2px;
-      flex-shrink: 0;
-    }
-
+    .legend { display: flex; gap: 1.25rem; padding: 0.75rem 1.25rem; border-top: 1px solid var(--border); flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; color: var(--muted); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
     .dot-high { background: var(--match-high-border); }
     .dot-med  { background: var(--match-med-border); }
     .dot-low  { background: var(--match-low-border); }
-
-    .empty-state {
-      text-align: center;
-      padding: 3rem 1rem;
-      color: var(--muted);
+    .rewrite-output {
+      padding: 1.25rem; font-size: 0.92rem; line-height: 1.85;
+      white-space: pre-wrap; word-break: break-word; color: var(--ink);
+      background: #f0fff4; border-left: 4px solid #38a169;
+      font-family: 'DM Sans', sans-serif;
     }
-
-    .empty-state .icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
-    .empty-state p { font-size: 0.9rem; }
-
-    .spinner {
-      display: none;
-      width: 18px; height: 18px;
-      border: 2px solid rgba(255,255,255,0.4);
-      border-top-color: white;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      flex-shrink: 0;
+    .rewrite-score-row { display: flex; gap: 1rem; padding: 1rem 1.25rem; border-top: 1px solid var(--border); background: var(--paper-dark); flex-wrap: wrap; align-items: center; }
+    .rewrite-score-badge { font-size: 0.85rem; font-weight: 600; color: #276749; }
+    .copy-btn {
+      margin-left: auto; font-family: 'DM Sans', sans-serif; font-size: 0.82rem;
+      font-weight: 500; padding: 6px 16px; border-radius: 6px; border: 1px solid #38a169;
+      cursor: pointer; background: white; color: #276749; transition: all 0.15s;
     }
-
+    .copy-btn:hover { background: #c6f6d5; }
+    .copy-btn.copied { background: #38a169; color: white; border-color: #276749; }
+    .spinner { display: none; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.4); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0; }
     @keyframes spin { to { transform: rotate(360deg); } }
-
-    .tip {
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
-      border-radius: var(--radius);
-      padding: 0.85rem 1.1rem;
-      font-size: 0.83rem;
-      color: #1e40af;
-      margin-bottom: 1.5rem;
-      line-height: 1.5;
-    }
-
+    .tip { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: var(--radius); padding: 0.85rem 1.1rem; font-size: 0.83rem; color: #1e40af; margin-bottom: 1.5rem; line-height: 1.5; }
     .tip strong { font-weight: 600; }
-
-    #tooltip {
-      position: fixed;
-      background: var(--ink);
-      color: var(--paper);
-      font-size: 0.75rem;
-      padding: 5px 10px;
-      border-radius: 5px;
-      pointer-events: none;
-      white-space: nowrap;
-      z-index: 999;
-      opacity: 0;
-      transition: opacity 0.15s;
-      max-width: 240px;
-      white-space: normal;
-    }
+    #tooltip { position: fixed; background: var(--ink); color: var(--paper); font-size: 0.75rem; padding: 5px 10px; border-radius: 5px; pointer-events: none; z-index: 999; opacity: 0; transition: opacity 0.15s; max-width: 240px; white-space: normal; }
+    .divider { border: none; border-top: 2px dashed var(--border); margin: 2rem 0; }
+    .rewrite-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+    .rewrite-header h2 { font-family: 'DM Serif Display', serif; font-size: 1.4rem; }
+    .green-dot { width: 10px; height: 10px; border-radius: 50%; background: #38a169; display: inline-block; }
   </style>
 </head>
 <body>
@@ -490,14 +167,13 @@
 
 <div class="container">
   <h1>Research Plagiarism Checker</h1>
-  <p class="subtitle">Check your proposal against your own sources before submitting to Turnitin. All analysis runs locally — nothing leaves your browser.</p>
+  <p class="subtitle">Check your proposal against your sources, then auto-rewrite flagged passages so your score stays under 10%.</p>
 
   <div class="tip">
-    <strong>How to use:</strong> Paste your research proposal on the left, then add each source you referenced on the right (paste full text from PDFs, websites, or previous work). Hit <em>Analyse</em> to see which passages need paraphrasing or proper citation.
+    <strong>How to use:</strong> Paste your research proposal on the left, add each source on the right, then click <em>Analyse</em>. After the analysis, click <em>Auto-Rewrite to &lt;10%</em> to get a corrected clean version ready to copy.
   </div>
 
   <div class="grid">
-    <!-- Left: Document -->
     <div class="card">
       <div class="card-header">
         <h2>Your Document</h2>
@@ -505,8 +181,6 @@
       </div>
       <textarea id="docText" placeholder="Paste your research proposal or essay here…" spellcheck="false"></textarea>
     </div>
-
-    <!-- Right: Sources -->
     <div class="card">
       <div class="card-header">
         <h2>Reference Sources</h2>
@@ -526,233 +200,568 @@
       <span class="spinner" id="btnSpinner"></span>
     </button>
     <div class="options">
-      <label class="option-label">
-        <input type="checkbox" id="optSelfCheck" checked />
-        Self-plagiarism check
-      </label>
-      <label class="option-label">
-        <input type="checkbox" id="optCaseSensitive" />
-        Case-sensitive
-      </label>
-      <label class="option-label">
-        <input type="checkbox" id="optStopwords" checked />
-        Ignore common words
-      </label>
+      <label class="option-label"><input type="checkbox" id="optStopwords" checked /> Ignore common words</label>
+      <label class="option-label"><input type="checkbox" id="optCaseSensitive" /> Case-sensitive</label>
     </div>
   </div>
 
-  <!-- Results -->
+  <!-- Analysis Results -->
   <div id="results">
     <div class="score-row" id="scoreRow"></div>
-
     <div class="result-card">
       <div class="result-card-header">
         <h3>Highlighted Document</h3>
         <div class="legend">
-          <div class="legend-item"><div class="legend-dot dot-high"></div>High similarity (&gt;70%)</div>
-          <div class="legend-item"><div class="legend-dot dot-med"></div>Medium (40–70%)</div>
-          <div class="legend-item"><div class="legend-dot dot-low"></div>Low (20–40%)</div>
+          <div class="legend-item"><div class="legend-dot dot-high"></div>High &gt;70%</div>
+          <div class="legend-item"><div class="legend-dot dot-med"></div>Medium 40–70%</div>
+          <div class="legend-item"><div class="legend-dot dot-low"></div>Low 20–40%</div>
         </div>
       </div>
       <div class="highlighted-text" id="highlightedDoc"></div>
     </div>
-
     <div class="result-card">
-      <div class="result-card-header">
-        <h3>Similarity by Source</h3>
-      </div>
+      <div class="result-card-header"><h3>Similarity by Source</h3></div>
       <div class="source-breakdown" id="sourceBreakdown"></div>
+    </div>
+
+    <!-- Rewrite trigger -->
+    <div style="text-align:center; margin: 1.5rem 0;">
+      <button class="btn btn-green" id="rewriteBtn" onclick="runRewrite()">
+        <span id="rwBtnText">✨ Auto-Rewrite to &lt;10%</span>
+        <span class="spinner" id="rwBtnSpinner"></span>
+      </button>
     </div>
   </div>
 
-  <div id="emptyResults" class="empty-state" style="display:none;">
-    <div class="icon">📄</div>
-    <p>No matches found. Your document appears original against the provided sources.</p>
+  <!-- Rewrite Output -->
+  <div id="rewriteSection">
+    <hr class="divider" />
+    <div class="rewrite-header">
+      <span class="green-dot"></span>
+      <h2>Corrected Text</h2>
+    </div>
+    <div class="result-card">
+      <div class="result-card-header">
+        <h3>Rewritten — Ready to Use</h3>
+        <span id="newScoreBadge" class="rewrite-score-badge"></span>
+      </div>
+      <div class="rewrite-output" id="rewriteOutput"></div>
+      <div class="rewrite-score-row">
+        <span id="rewriteSummary" style="font-size:0.85rem; color:var(--muted);"></span>
+        <button class="copy-btn" id="copyBtn" onclick="copyRewrite()">Copy Text</button>
+      </div>
+    </div>
   </div>
 </div>
 
 <div id="tooltip"></div>
 
 <script>
-// ─── Stop words ────────────────────────────────────────────────────────────
+// ─── Synonym dictionary ────────────────────────────────────────────────────
+const SYN = {
+  // Verbs
+  use:['utilize','employ','apply','implement'],
+  show:['demonstrate','illustrate','reveal','indicate'],
+  find:['discover','identify','determine','establish'],
+  make:['create','develop','produce','generate'],
+  get:['obtain','acquire','receive','gain'],
+  give:['provide','offer','present','supply'],
+  help:['assist','support','aid','facilitate'],
+  need:['require','necessitate','demand'],
+  think:['consider','believe','argue','suggest'],
+  see:['observe','note','recognize','identify'],
+  know:['understand','recognize','acknowledge'],
+  look:['examine','investigate','explore','analyze'],
+  come:['emerge','arise','result','stem'],
+  work:['function','operate','perform','serve'],
+  study:['examine','investigate','analyze','research'],
+  analyze:['examine','assess','evaluate','investigate'],
+  analyse:['examine','assess','evaluate','investigate'],
+  increase:['enhance','improve','augment','elevate'],
+  decrease:['reduce','diminish','decline','lower'],
+  develop:['create','establish','formulate','construct'],
+  implement:['apply','execute','adopt','introduce'],
+  improve:['enhance','advance','optimize','refine'],
+  propose:['suggest','recommend','advocate','outline'],
+  discuss:['address','examine','explore','consider'],
+  present:['introduce','outline','describe','detail'],
+  provide:['offer','supply','deliver','furnish'],
+  require:['necessitate','demand','call for'],
+  include:['encompass','involve','incorporate','comprise'],
+  consider:['examine','evaluate','assess','regard'],
+  suggest:['propose','recommend','indicate','imply'],
+  indicate:['show','suggest','demonstrate','reveal'],
+  demonstrate:['show','illustrate','prove','establish'],
+  examine:['analyze','investigate','study','assess'],
+  evaluate:['assess','examine','analyze','review'],
+  assess:['evaluate','examine','analyze','determine'],
+  identify:['recognize','determine','establish','detect'],
+  determine:['establish','identify','ascertain','find'],
+  establish:['determine','identify','create','set up'],
+  investigate:['examine','study','explore','research'],
+  explore:['investigate','examine','study','analyze'],
+  achieve:['attain','accomplish','reach','realize'],
+  obtain:['acquire','gain','secure','attain'],
+  cause:['produce','generate','bring about','trigger'],
+  affect:['influence','impact','alter','change'],
+  influence:['affect','impact','shape','determine'],
+  impact:['affect','influence','alter','shape'],
+  conclude:['determine','find','establish','infer'],
+  highlight:['emphasize','underscore','stress','note'],
+  focus:['concentrate','emphasize','center','direct'],
+  aim:['seek','intend','endeavor','strive'],
+  address:['tackle','handle','deal with','manage'],
+  involve:['include','encompass','entail','comprise'],
+  support:['reinforce','substantiate','validate','uphold'],
+  reveal:['show','indicate','demonstrate','disclose'],
+  ensure:['guarantee','confirm','maintain','secure'],
+  enable:['allow','permit','facilitate','support'],
+  result:['lead','stem','arise','follow'],
+  employ:['use','utilize','apply','adopt'],
+  apply:['use','employ','utilize','implement'],
+  conduct:['carry out','perform','undertake','execute'],
+  perform:['carry out','conduct','execute','undertake'],
+  note:['observe','highlight','point out','remark'],
+  observe:['note','find','identify','detect'],
+  argue:['contend','assert','claim','maintain'],
+  claim:['argue','assert','contend','propose'],
+  state:['note','indicate','point out','mention'],
+  report:['indicate','note','show','present'],
+  compare:['contrast','examine','assess','relate'],
+
+  // Adjectives
+  important:['significant','crucial','essential','vital'],
+  significant:['important','notable','substantial','considerable'],
+  different:['distinct','varied','diverse','alternative'],
+  new:['novel','innovative','recent','modern'],
+  large:['substantial','considerable','extensive','broad'],
+  small:['limited','minimal','minor','modest'],
+  high:['elevated','substantial','considerable','notable'],
+  low:['minimal','limited','reduced','modest'],
+  good:['effective','beneficial','positive','favorable'],
+  bad:['negative','adverse','detrimental','unfavorable'],
+  main:['primary','key','central','principal'],
+  major:['significant','primary','key','substantial'],
+  specific:['particular','distinct','precise','individual'],
+  general:['broad','overall','common','widespread'],
+  current:['existing','present','contemporary','recent'],
+  previous:['prior','earlier','former','preceding'],
+  various:['diverse','multiple','numerous','differing'],
+  many:['numerous','several','multiple','a range of'],
+  several:['multiple','various','numerous','a number of'],
+  common:['widespread','prevalent','frequent','typical'],
+  complex:['sophisticated','intricate','multifaceted','elaborate'],
+  simple:['straightforward','basic','fundamental','elementary'],
+  effective:['efficient','successful','productive','beneficial'],
+  efficient:['effective','productive','optimal','streamlined'],
+  critical:['essential','crucial','vital','important'],
+  essential:['critical','fundamental','necessary','vital'],
+  necessary:['required','essential','needed','crucial'],
+  potential:['possible','prospective','likely','probable'],
+  limited:['restricted','constrained','minimal','finite'],
+  related:['associated','connected','linked','relevant'],
+  similar:['comparable','analogous','equivalent','alike'],
+  traditional:['conventional','established','standard','classical'],
+  modern:['contemporary','current','recent','advanced'],
+  recent:['current','contemporary','latest','new'],
+  key:['central','primary','fundamental','core'],
+  overall:['general','broad','comprehensive','total'],
+  available:['accessible','obtainable','existing','present'],
+  possible:['feasible','potential','likely','probable'],
+  clear:['evident','apparent','obvious','distinct'],
+  broad:['wide','extensive','comprehensive','general'],
+  unique:['distinctive','novel','singular','particular'],
+  strong:['robust','substantial','significant','powerful'],
+  wide:['broad','extensive','widespread','expansive'],
+  long:['extended','prolonged','lengthy','extensive'],
+  short:['brief','concise','limited','brief'],
+  early:['initial','preliminary','prior','preceding'],
+  late:['recent','advanced','later','subsequent'],
+  final:['ultimate','concluding','last','terminal'],
+
+  // Nouns
+  research:['study','investigation','analysis','inquiry','examination'],
+  analysis:['examination','assessment','evaluation','study','review'],
+  method:['approach','technique','procedure','strategy','means'],
+  approach:['method','technique','strategy','framework','manner'],
+  result:['outcome','finding','conclusion','consequence','effect'],
+  problem:['issue','challenge','concern','difficulty','obstacle'],
+  issue:['problem','challenge','concern','matter','question'],
+  area:['domain','field','region','sector','sphere'],
+  field:['domain','area','discipline','sector','subject'],
+  data:['information','evidence','findings','results','records'],
+  information:['data','knowledge','evidence','details','material'],
+  process:['procedure','mechanism','approach','system','method'],
+  system:['framework','structure','mechanism','model','arrangement'],
+  model:['framework','approach','system','structure','method'],
+  framework:['structure','model','system','approach','scheme'],
+  factor:['element','aspect','variable','component','determinant'],
+  effect:['impact','influence','consequence','outcome','result'],
+  impact:['effect','influence','consequence','result','bearing'],
+  level:['degree','extent','magnitude','rate','measure'],
+  rate:['level','degree','frequency','proportion','pace'],
+  role:['function','purpose','significance','contribution','part'],
+  purpose:['objective','aim','goal','intent','rationale'],
+  objective:['goal','aim','purpose','target','intention'],
+  goal:['objective','aim','target','purpose','end'],
+  aspect:['element','component','feature','dimension','facet'],
+  feature:['characteristic','aspect','attribute','property','element'],
+  challenge:['difficulty','obstacle','issue','problem','hurdle'],
+  opportunity:['prospect','potential','possibility','advantage','opening'],
+  evidence:['data','proof','support','findings','indication'],
+  example:['instance','illustration','case','sample','demonstration'],
+  case:['instance','example','situation','scenario','circumstance'],
+  type:['kind','category','form','variety','class'],
+  number:['quantity','amount','count','total','figure'],
+  amount:['quantity','level','degree','extent','volume'],
+  part:['component','element','aspect','section','portion'],
+  group:['category','set','collection','cluster','cohort'],
+  population:['group','community','cohort','sample','demographic'],
+  value:['significance','importance','worth','benefit','merit'],
+  benefit:['advantage','merit','value','gain','asset'],
+  advantage:['benefit','merit','strength','asset','positive'],
+  limitation:['constraint','restriction','drawback','shortcoming','boundary'],
+  literature:['research','studies','scholarship','work','writings'],
+  theory:['framework','model','approach','concept','proposition'],
+  concept:['idea','notion','principle','theory','construct'],
+  principle:['concept','idea','guideline','rule','tenet'],
+  context:['setting','environment','framework','background','situation'],
+  background:['context','history','foundation','basis','grounding'],
+  basis:['foundation','ground','premise','rationale','underpinning'],
+  attention:['focus','consideration','emphasis','regard','interest'],
+  knowledge:['understanding','awareness','expertise','insight','understanding'],
+  understanding:['knowledge','comprehension','insight','awareness','grasp'],
+  question:['issue','inquiry','concern','matter','query'],
+  hypothesis:['proposition','assumption','conjecture','theory','premise'],
+  conclusion:['finding','determination','result','inference','deduction'],
+  finding:['result','conclusion','discovery','outcome','observation'],
+  observation:['finding','note','remark','insight','comment'],
+  experience:['exposure','engagement','practice','encounter','involvement'],
+  practice:['application','implementation','use','approach','conduct'],
+  application:['use','implementation','practice','deployment','utilization'],
+  implementation:['application','execution','deployment','adoption','realization'],
+  performance:['effectiveness','efficiency','outcome','results','functioning'],
+  quality:['standard','excellence','caliber','level','grade'],
+  structure:['organization','framework','arrangement','format','composition'],
+  organization:['structure','arrangement','system','framework','setup'],
+  relationship:['connection','association','link','correlation','bond'],
+  connection:['relationship','link','association','bond','tie'],
+  association:['relationship','connection','link','correlation','affiliation'],
+  difference:['distinction','variation','contrast','discrepancy','divergence'],
+  similarity:['resemblance','correspondence','parallel','equivalence','likeness'],
+  comparison:['contrast','analysis','evaluation','examination','assessment'],
+  condition:['circumstance','situation','state','environment','context'],
+  situation:['circumstance','condition','context','environment','position'],
+  environment:['context','setting','conditions','surroundings','milieu'],
+  component:['element','part','aspect','feature','constituent'],
+  element:['component','factor','aspect','part','constituent'],
+  variable:['factor','element','parameter','measure','determinant'],
+  measure:['indicator','metric','assessment','evaluation','gauge'],
+  outcome:['result','consequence','effect','finding','product'],
+  consequence:['outcome','result','effect','implication','ramification'],
+  implication:['consequence','significance','meaning','impact','ramification'],
+  significance:['importance','relevance','value','meaning','weight'],
+  contribution:['addition','input','value','significance','addition'],
+  strategy:['approach','method','plan','framework','tactic'],
+  technique:['method','approach','procedure','strategy','tool'],
+  procedure:['method','process','approach','protocol','routine'],
+  mechanism:['process','system','method','means','instrument'],
+  sample:['group','subset','selection','set','cohort'],
+  participant:['subject','respondent','individual','member','contributor'],
+  study:['research','investigation','analysis','examination','inquiry'],
+  paper:['article','work','document','publication','manuscript'],
+  survey:['questionnaire','investigation','assessment','review','examination'],
+  interview:['discussion','conversation','session','exchange','dialogue'],
+  measurement:['assessment','evaluation','gauge','indicator','metric'],
+  instrument:['tool','device','measure','mechanism','means'],
+  dataset:['data','records','collection','corpus','repository'],
+  theme:['topic','subject','concept','pattern','strand'],
+  pattern:['trend','structure','regularity','arrangement','configuration'],
+
+  // Adverbs/connectives
+  also:['additionally','furthermore','moreover','as well','in addition'],
+  however:['nevertheless','nonetheless','yet','in contrast','that said'],
+  therefore:['thus','consequently','hence','as a result','accordingly'],
+  thus:['therefore','consequently','hence','accordingly','as such'],
+  furthermore:['additionally','moreover','also','beyond this','in addition'],
+  moreover:['furthermore','additionally','also','besides','what is more'],
+  additionally:['furthermore','moreover','also','besides','in addition'],
+  consequently:['therefore','thus','hence','as a result','accordingly'],
+  specifically:['particularly','in particular','especially','notably','precisely'],
+  particularly:['specifically','especially','notably','in particular','above all'],
+  especially:['particularly','specifically','notably','in particular','chiefly'],
+  generally:['broadly','overall','typically','commonly','ordinarily'],
+  typically:['generally','usually','commonly','ordinarily','routinely'],
+  usually:['typically','generally','commonly','ordinarily','as a rule'],
+  often:['frequently','commonly','regularly','typically','repeatedly'],
+  frequently:['often','regularly','commonly','repeatedly','routinely'],
+  significantly:['substantially','considerably','notably','markedly','greatly'],
+  substantially:['significantly','considerably','markedly','greatly','largely'],
+  considerably:['substantially','significantly','markedly','greatly','notably'],
+  primarily:['mainly','principally','chiefly','predominantly','above all'],
+  mainly:['primarily','principally','chiefly','predominantly','largely'],
+  largely:['mainly','primarily','predominantly','substantially','chiefly'],
+  clearly:['evidently','obviously','apparently','plainly','manifestly'],
+  currently:['presently','at present','now','at this time','today'],
+  recently:['lately','in recent times','of late','newly','in recent years'],
+  previously:['formerly','earlier','prior to this','in the past','before'],
+  initially:['originally','at first','at the outset','first','at the start'],
+  subsequently:['later','afterward','following this','then','thereafter'],
+  finally:['ultimately','lastly','in conclusion','in the end','to conclude'],
+  essentially:['fundamentally','basically','primarily','in essence','at its core'],
+  effectively:['efficiently','successfully','in practice','practically','in effect'],
+  directly:['immediately','explicitly','specifically','precisely','straight'],
+  rapidly:['quickly','swiftly','speedily','fast','promptly'],
+  widely:['broadly','extensively','commonly','generally','pervasively'],
+  highly:['greatly','substantially','considerably','markedly','extremely'],
+  closely:['carefully','carefully','thoroughly','carefully','attentively'],
+  strongly:['robustly','substantially','considerably','firmly','markedly'],
+  largely:['mainly','primarily','predominantly','substantially','chiefly'],
+  overall:['broadly','generally','on the whole','in general','comprehensively'],
+  together:['collectively','jointly','in combination','combined','as a whole'],
+};
+
+// ─── Phrase replacements (applied before word-level) ──────────────────────
+const PHRASES = [
+  [/\bin order to\b/gi, 'to'],
+  [/\bdue to the fact that\b/gi, 'because'],
+  [/\bat this point in time\b/gi, 'currently'],
+  [/\bin the event that\b/gi, 'if'],
+  [/\bprior to\b/gi, 'before'],
+  [/\bsubsequent to\b/gi, 'after'],
+  [/\bwith regard to\b/gi, 'regarding'],
+  [/\bwith respect to\b/gi, 'concerning'],
+  [/\bin spite of\b/gi, 'despite'],
+  [/\bfor the purpose of\b/gi, 'to'],
+  [/\bin the case of\b/gi, 'for'],
+  [/\bin terms of\b/gi, 'regarding'],
+  [/\btakes into account\b/gi, 'considers'],
+  [/\bcarried out\b/gi, 'conducted'],
+  [/\bpoints out\b/gi, 'notes'],
+  [/\bpoints to\b/gi, 'indicates'],
+  [/\ba number of\b/gi, 'several'],
+  [/\ba wide range of\b/gi, 'numerous'],
+  [/\ba variety of\b/gi, 'various'],
+  [/\bthe majority of\b/gi, 'most'],
+  [/\bthe use of\b/gi, 'using'],
+  [/\bas a result of\b/gi, 'due to'],
+  [/\bin light of\b/gi, 'given'],
+  [/\bthat is to say\b/gi, 'namely'],
+  [/\bwith the aim of\b/gi, 'to'],
+  [/\bhas been shown to\b/gi, 'is known to'],
+  [/\bit is important to note\b/gi, 'notably'],
+  [/\bit should be noted\b/gi, 'notably'],
+  [/\bit is worth noting\b/gi, 'notably'],
+  [/\bplays a (key|major|important|significant|crucial|vital)\b/gi, 'serves a central'],
+  [/\bin addition to\b/gi, 'beyond'],
+  [/\bin conclusion\b/gi, 'to summarize'],
+  [/\bthis study\b/gi, 'this research'],
+  [/\bthis paper\b/gi, 'this work'],
+  [/\bthe present study\b/gi, 'the current investigation'],
+  [/\bthe results show\b/gi, 'the findings indicate'],
+  [/\bthe results indicate\b/gi, 'the findings suggest'],
+  [/\bthe results suggest\b/gi, 'the data indicate'],
+  [/\bthe findings show\b/gi, 'the results indicate'],
+  [/\baccording to\b/gi, 'as noted by'],
+  [/\bhas been widely\b/gi, 'is broadly'],
+  [/\bhas been used\b/gi, 'has been employed'],
+];
+
+// ─── Stop words ───────────────────────────────────────────────────────────
 const STOP_WORDS = new Set([
   'a','an','the','and','but','or','nor','for','so','yet','in','on','at','to',
   'of','by','with','from','into','through','during','before','after','above',
   'below','up','down','out','off','over','under','is','are','was','were','be',
   'been','being','have','has','had','do','does','did','will','would','could',
-  'should','may','might','must','shall','can','need','dare','ought','used',
-  'this','that','these','those','it','its','i','me','my','we','our','you',
-  'your','he','his','she','her','they','them','their','what','which','who',
-  'whom','when','where','why','how','all','both','each','few','more','most',
-  'other','some','such','no','not','only','same','than','too','very','just',
-  'also','as','if','then','there','here','about','between','while','although',
+  'should','may','might','must','shall','can','this','that','these','those',
+  'it','its','i','me','my','we','our','you','your','he','his','she','her',
+  'they','them','their','what','which','who','whom','when','where','why','how',
+  'all','both','each','few','more','most','other','some','such','no','not',
+  'only','same','than','too','very','just','also','as','if','then','there',
+  'here','about','between','while','although',
 ]);
 
-// ─── Tokenise ──────────────────────────────────────────────────────────────
-function tokenise(text, caseSensitive, removeStopwords) {
+// ─── Tokenise ─────────────────────────────────────────────────────────────
+function tokenise(text, caseSensitive, removeStop) {
   let t = caseSensitive ? text : text.toLowerCase();
   let words = t.match(/\b[a-zA-Z']{2,}\b/g) || [];
-  if (removeStopwords) words = words.filter(w => !STOP_WORDS.has(w.toLowerCase()));
+  if (removeStop) words = words.filter(w => !STOP_WORDS.has(w.toLowerCase()));
   return words;
 }
 
-// ─── Build n-gram set ──────────────────────────────────────────────────────
 function ngrams(tokens, n) {
   const set = new Set();
-  for (let i = 0; i <= tokens.length - n; i++) {
-    set.add(tokens.slice(i, i + n).join(' '));
-  }
+  for (let i = 0; i <= tokens.length - n; i++) set.add(tokens.slice(i,i+n).join(' '));
   return set;
 }
 
-// ─── Jaccard similarity ────────────────────────────────────────────────────
-function jaccard(setA, setB) {
-  if (!setA.size || !setB.size) return 0;
-  let inter = 0;
-  setA.forEach(g => { if (setB.has(g)) inter++; });
-  const union = setA.size + setB.size - inter;
-  return inter / union;
+function jaccard(a, b) {
+  if (!a.size || !b.size) return 0;
+  let inter = 0; a.forEach(g => { if (b.has(g)) inter++; });
+  return inter / (a.size + b.size - inter);
 }
 
-// ─── TF-IDF cosine similarity ──────────────────────────────────────────────
-function tfIdfSim(tokensA, tokensB) {
-  const freq = (toks) => {
-    const m = {};
-    toks.forEach(t => { m[t] = (m[t] || 0) + 1; });
-    return m;
-  };
-  const fA = freq(tokensA), fB = freq(tokensB);
-  const vocab = new Set([...Object.keys(fA), ...Object.keys(fB)]);
-  let dot = 0, magA = 0, magB = 0;
-  vocab.forEach(w => {
-    const a = fA[w] || 0, b = fB[w] || 0;
-    dot += a * b; magA += a * a; magB += b * b;
-  });
-  if (!magA || !magB) return 0;
-  return dot / (Math.sqrt(magA) * Math.sqrt(magB));
+function tfIdfSim(tA, tB) {
+  const freq = t => { const m={}; t.forEach(w=>{m[w]=(m[w]||0)+1;}); return m; };
+  const fA=freq(tA), fB=freq(tB);
+  const vocab=new Set([...Object.keys(fA),...Object.keys(fB)]);
+  let dot=0,mA=0,mB=0;
+  vocab.forEach(w=>{ const a=fA[w]||0,b=fB[w]||0; dot+=a*b; mA+=a*a; mB+=b*b; });
+  if (!mA||!mB) return 0;
+  return dot/(Math.sqrt(mA)*Math.sqrt(mB));
 }
 
-// ─── Sentence splitter ────────────────────────────────────────────────────
 function splitSentences(text) {
-  const raw = text.match(/[^.!?\n]+[.!?\n]+|[^.!?\n]+$/g) || [text];
-  return raw.map(s => s.trim()).filter(s => s.length > 20);
+  return (text.match(/[^.!?\n]+[.!?\n]+|[^.!?\n]+$/g)||[text]).map(s=>s.trim()).filter(s=>s.length>15);
 }
 
-// ─── Find matched sentences & compute per-source score ────────────────────
-function analyseSource(docSentences, sourceSentences, srcTokens, opts) {
-  const N = 5;
-  const srcNg = ngrams(srcTokens, N);
-  const results = [];
+function scoreSentence(sent, srcTokens, opts) {
+  const st = tokenise(sent, opts.caseSensitive, opts.stopwords);
+  if (st.length < 3) return 0;
+  const N = Math.min(5, st.length);
+  const jac = jaccard(ngrams(st,N), ngrams(srcTokens,N));
+  const cos = tfIdfSim(st, srcTokens);
+  return 0.6*jac + 0.4*cos;
+}
 
-  docSentences.forEach(sent => {
-    const sentTokens = tokenise(sent, opts.caseSensitive, opts.stopwords);
-    if (sentTokens.length < 4) { results.push({ sent, score: 0 }); return; }
-    const sentNg = ngrams(sentTokens, Math.min(N, sentTokens.length));
-    const jac = jaccard(sentNg, srcNg);
-    const cos = tfIdfSim(sentTokens, srcTokens);
-    const score = 0.6 * jac + 0.4 * cos;
-    results.push({ sent, score });
+function overallSim(docTokens, srcTokens) {
+  const N=5;
+  const jac=jaccard(ngrams(docTokens,N),ngrams(srcTokens,N));
+  const cos=tfIdfSim(docTokens,srcTokens);
+  return 0.55*jac+0.45*cos;
+}
+
+// ─── Paraphrase engine ────────────────────────────────────────────────────
+let _synIdx = 0;
+function pickSyn(word) {
+  const lower = word.toLowerCase();
+  const list = SYN[lower];
+  if (!list) return null;
+  return list[(_synIdx++) % list.length];
+}
+
+function rewriteSentence(sentence, aggressiveness) {
+  // 1. Apply phrase-level replacements first
+  let s = sentence;
+  PHRASES.forEach(([rx, rep]) => { s = s.replace(rx, rep); });
+
+  // 2. Word-level synonym replacement
+  // Split preserving punctuation attached to words
+  const parts = s.split(/(\b[a-zA-Z']+\b)/);
+  let replaced = 0;
+  const out = parts.map(token => {
+    if (!/^[a-zA-Z']+$/.test(token)) return token;
+    if (STOP_WORDS.has(token.toLowerCase())) return token;
+    const syn = pickSyn(token);
+    if (!syn) return token;
+    // Aggressiveness: 0=low (replace ~40%), 1=high (replace ~90%)
+    const threshold = 0.4 + aggressiveness * 0.5;
+    if (Math.random() < threshold) {
+      replaced++;
+      // Preserve leading capital
+      if (token[0] === token[0].toUpperCase() && token[0] !== token[0].toLowerCase()) {
+        return syn.charAt(0).toUpperCase() + syn.slice(1);
+      }
+      return syn;
+    }
+    return token;
   });
 
-  return results;
+  return out.join('');
 }
 
-// ─── Compute overall doc similarity ───────────────────────────────────────
-function overallSimilarity(docTokens, srcTokens) {
-  const N = 5;
-  const docNg = ngrams(docTokens, N);
-  const srcNg = ngrams(srcTokens, N);
-  const jac = jaccard(docNg, srcNg);
-  const cos = tfIdfSim(docTokens, srcTokens);
-  return 0.55 * jac + 0.45 * cos;
+function paraphraseText(docText, sentenceMaxScores, opts) {
+  // Seed the index for deterministic output
+  _synIdx = 0;
+  Math.seedrandom && Math.seedrandom('sharppages');
+
+  const sentences = splitSentences(docText);
+  const rewritten = sentences.map((sent, i) => {
+    const score = sentenceMaxScores[i] ? sentenceMaxScores[i].score : 0;
+    if (score < 0.08) return sent; // original is fine
+    // Aggressiveness based on score
+    const aggressiveness = Math.min(1, score * 2);
+    return rewriteSentence(sent, aggressiveness);
+  });
+
+  return rewritten.join(' ');
 }
 
-// ─── Sources management ───────────────────────────────────────────────────
+// ─── Source management ────────────────────────────────────────────────────
 let sourceCount = 0;
-
-function addSource(name = '', text = '') {
+function addSource(name='', text='') {
   sourceCount++;
   const id = `src_${sourceCount}`;
   const list = document.getElementById('sourcesList');
   const item = document.createElement('div');
-  item.className = 'source-item';
-  item.id = `item_${id}`;
+  item.className = 'source-item'; item.id = `item_${id}`;
   item.innerHTML = `
     <div class="source-item-header">
-      <input class="source-name-input" id="name_${id}" placeholder="Source name (e.g. Smith 2022)" value="${escHtml(name)}" />
+      <input class="source-name-input" id="name_${id}" placeholder="Source name (e.g. Smith 2022)" value="${esc(name)}" />
       <button class="btn-remove" onclick="removeSource('item_${id}')" title="Remove">✕</button>
     </div>
-    <textarea id="${id}" placeholder="Paste source text here (full paragraph or abstract)…" spellcheck="false">${escHtml(text)}</textarea>
+    <textarea id="${id}" placeholder="Paste source text here…" spellcheck="false">${esc(text)}</textarea>
   `;
   list.appendChild(item);
   updateSrcCount();
   item.querySelector('textarea').addEventListener('input', updateSrcCount);
 }
-
-function removeSource(itemId) {
-  const el = document.getElementById(itemId);
-  if (el) { el.remove(); updateSrcCount(); }
-}
-
-function clearSources() {
-  document.getElementById('sourcesList').innerHTML = '';
-  sourceCount = 0;
-  updateSrcCount();
-}
-
+function removeSource(id) { const el=document.getElementById(id); if(el){el.remove();updateSrcCount();} }
+function clearSources() { document.getElementById('sourcesList').innerHTML=''; sourceCount=0; updateSrcCount(); }
 function updateSrcCount() {
   const items = document.querySelectorAll('.source-item textarea');
-  const filled = Array.from(items).filter(t => t.value.trim().length > 0).length;
-  document.getElementById('srcCount').textContent = `${filled} source${filled !== 1 ? 's' : ''}`;
+  const n = Array.from(items).filter(t=>t.value.trim().length>0).length;
+  document.getElementById('srcCount').textContent = `${n} source${n!==1?'s':''}`;
 }
+function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
-function escHtml(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-// ─── Word count ───────────────────────────────────────────────────────────
-document.getElementById('docText').addEventListener('input', function () {
-  const words = this.value.trim().split(/\s+/).filter(Boolean).length;
-  document.getElementById('docCount').textContent = `${words} word${words !== 1 ? 's' : ''}`;
+document.getElementById('docText').addEventListener('input', function() {
+  const w=this.value.trim().split(/\s+/).filter(Boolean).length;
+  document.getElementById('docCount').textContent=`${w} word${w!==1?'s':''}`;
 });
+
+// ─── Global state ─────────────────────────────────────────────────────────
+let _lastSentenceMax = [];
+let _lastDocText = '';
+let _lastSources = [];
+let _lastOpts = {};
 
 // ─── Main analysis ────────────────────────────────────────────────────────
 function runAnalysis() {
   const docText = document.getElementById('docText').value.trim();
   if (!docText) { alert('Please paste your document first.'); return; }
-
   const opts = {
     caseSensitive: document.getElementById('optCaseSensitive').checked,
     stopwords: document.getElementById('optStopwords').checked,
   };
-
-  // Gather sources
   const sources = [];
   document.querySelectorAll('.source-item').forEach(item => {
-    const textarea = item.querySelector('textarea');
-    const nameInput = item.querySelector('input');
-    const text = textarea.value.trim();
-    const name = nameInput.value.trim() || `Source ${sources.length + 1}`;
-    if (text.length > 30) sources.push({ name, text });
+    const ta = item.querySelector('textarea');
+    const ni = item.querySelector('input');
+    const text = ta.value.trim();
+    const name = ni.value.trim() || `Source ${sources.length+1}`;
+    if (text.length > 30) sources.push({name,text});
   });
+  if (!sources.length) { alert('Please add at least one source.'); return; }
 
-  if (sources.length === 0) { alert('Please add at least one source to compare against.'); return; }
-
-  // Show loading state
   const btn = document.getElementById('analyseBtn');
-  document.getElementById('btnText').textContent = 'Analysing…';
-  document.getElementById('btnSpinner').style.display = 'inline-block';
-  btn.disabled = true;
+  document.getElementById('btnText').textContent='Analysing…';
+  document.getElementById('btnSpinner').style.display='inline-block';
+  btn.disabled=true;
+  document.getElementById('rewriteSection').style.display='none';
 
-  // Run in next tick so spinner renders
   setTimeout(() => {
     try {
       const result = compute(docText, sources, opts);
+      _lastSentenceMax = result.sentenceMax;
+      _lastDocText = docText;
+      _lastSources = sources;
+      _lastOpts = opts;
       renderResults(docText, result, sources);
     } finally {
-      document.getElementById('btnText').textContent = 'Analyse Now';
-      document.getElementById('btnSpinner').style.display = 'none';
-      btn.disabled = false;
+      document.getElementById('btnText').textContent='Analyse Now';
+      document.getElementById('btnSpinner').style.display='none';
+      btn.disabled=false;
     }
   }, 60);
 }
@@ -760,129 +769,142 @@ function runAnalysis() {
 function compute(docText, sources, opts) {
   const docSentences = splitSentences(docText);
   const docTokens = tokenise(docText, opts.caseSensitive, opts.stopwords);
-
-  // Per-source similarity
   const srcResults = sources.map(src => {
-    const srcTokens = tokenise(src.text, opts.caseSensitive, opts.stopwords);
-    const sentenceScores = analyseSource(docSentences, splitSentences(src.text), srcTokens, opts);
-    const overall = overallSimilarity(docTokens, srcTokens);
-    return { name: src.name, overall, sentenceScores };
+    const st = tokenise(src.text, opts.caseSensitive, opts.stopwords);
+    const sentScores = docSentences.map(sent => ({ sent, score: scoreSentence(sent, st, opts) }));
+    return { name:src.name, overall:overallSim(docTokens,st), sentScores };
   });
-
-  // Sentence-level max score across all sources (for highlighting)
-  const sentenceMax = docSentences.map((sent, i) => {
-    let maxScore = 0;
-    let maxSrc = '';
-    srcResults.forEach(sr => {
-      const s = sr.sentenceScores[i];
-      if (s && s.score > maxScore) { maxScore = s.score; maxSrc = sr.name; }
-    });
-    return { sent, score: maxScore, source: maxSrc };
+  const sentenceMax = docSentences.map((sent,i) => {
+    let max=0, maxSrc='';
+    srcResults.forEach(sr => { if(sr.sentScores[i]&&sr.sentScores[i].score>max){max=sr.sentScores[i].score;maxSrc=sr.name;} });
+    return {sent,score:max,source:maxSrc};
   });
-
-  // Overall doc score = max across sources (weighted)
-  const combinedScore = Math.min(srcResults.reduce((a, sr) => a + sr.overall, 0), 1);
-  const maxScore = Math.max(...srcResults.map(sr => sr.overall));
-
-  return { srcResults, sentenceMax, combinedScore, maxScore };
+  const maxScore = Math.max(...srcResults.map(sr=>sr.overall));
+  return {srcResults,sentenceMax,maxScore};
 }
 
 function renderResults(docText, result, sources) {
-  const { srcResults, sentenceMax, combinedScore, maxScore } = result;
-
-  const pct = v => Math.round(v * 100);
-  const riskClass = v => v >= 0.4 ? 'high' : v >= 0.2 ? 'med' : 'low';
-  const riskLabel = v => v >= 0.4 ? 'High Risk' : v >= 0.2 ? 'Moderate' : 'Low Risk';
+  const {srcResults,sentenceMax,maxScore} = result;
+  const pct = v=>Math.round(v*100);
+  const risk = v=>v>=0.4?'high':v>=0.2?'med':'low';
+  const riskLabel = v=>v>=0.4?'High Risk':v>=0.2?'Moderate':'Low Risk';
 
   // Score cards
-  const scoreRow = document.getElementById('scoreRow');
-  const risk = riskClass(maxScore);
-  scoreRow.innerHTML = `
-    <div class="score-card score-risk-${risk}">
+  const r = risk(maxScore);
+  document.getElementById('scoreRow').innerHTML=`
+    <div class="score-card score-risk-${r}">
       <div class="label">Overall Similarity</div>
       <div class="value">${pct(maxScore)}%</div>
-      <div class="detail">Highest match across ${sources.length} source${sources.length > 1 ? 's' : ''}</div>
-      <span class="risk-badge risk-${risk}">${riskLabel(maxScore)}</span>
+      <div class="detail">Highest match across ${sources.length} source${sources.length>1?'s':''}</div>
+      <span class="risk-badge risk-${r}">${riskLabel(maxScore)}</span>
     </div>
     <div class="score-card">
       <div class="label">Flagged Sentences</div>
-      <div class="value">${sentenceMax.filter(s => s.score >= 0.2).length}</div>
-      <div class="detail">out of ${sentenceMax.length} total sentences</div>
+      <div class="value">${sentenceMax.filter(s=>s.score>=0.2).length}</div>
+      <div class="detail">of ${sentenceMax.length} total sentences</div>
     </div>
     <div class="score-card">
       <div class="label">Unique Content</div>
-      <div class="value">${Math.max(0, 100 - pct(maxScore))}%</div>
-      <div class="detail">Estimated original content</div>
+      <div class="value">${Math.max(0,100-pct(maxScore))}%</div>
+      <div class="detail">Estimated original</div>
     </div>
     <div class="score-card">
       <div class="label">Turnitin Risk</div>
-      <div class="value" style="font-size:1.5rem">${maxScore >= 0.4 ? '⚠️ Revise' : maxScore >= 0.15 ? '⚡ Review' : '✅ Good'}</div>
-      <div class="detail">${maxScore >= 0.4 ? 'Likely flagged — paraphrase or cite' : maxScore >= 0.15 ? 'Some passages may need citing' : 'Likely to pass Turnitin'}</div>
+      <div class="value" style="font-size:1.4rem">${maxScore>=0.4?'⚠️ Revise':maxScore>=0.15?'⚡ Review':'✅ Good'}</div>
+      <div class="detail">${maxScore>=0.4?'Paraphrase flagged sections':maxScore>=0.15?'Some passages need work':'Likely passes Turnitin'}</div>
     </div>
   `;
 
-  // Highlighted document
-  const highlightedDoc = document.getElementById('highlightedDoc');
-  let html = '';
-  sentenceMax.forEach(({ sent, score, source }) => {
-    const escaped = escHtml(sent);
-    if (score >= 0.4) {
-      html += `<mark class="high" data-source="${escHtml(source)}" data-score="${pct(score)}%">${escaped}</mark> `;
-    } else if (score >= 0.2) {
-      html += `<mark class="med" data-source="${escHtml(source)}" data-score="${pct(score)}%">${escaped}</mark> `;
-    } else if (score >= 0.08) {
-      html += `<mark class="low" data-source="${escHtml(source)}" data-score="${pct(score)}%">${escaped}</mark> `;
-    } else {
-      html += escaped + ' ';
-    }
+  // Highlighted doc
+  let html='';
+  sentenceMax.forEach(({sent,score,source})=>{
+    const e=esc(sent);
+    if(score>=0.4) html+=`<mark class="high" data-source="${esc(source)}" data-score="${pct(score)}%">${e}</mark> `;
+    else if(score>=0.2) html+=`<mark class="med" data-source="${esc(source)}" data-score="${pct(score)}%">${e}</mark> `;
+    else if(score>=0.08) html+=`<mark class="low" data-source="${esc(source)}" data-score="${pct(score)}%">${e}</mark> `;
+    else html+=e+' ';
   });
-  highlightedDoc.innerHTML = html || escHtml(docText);
+  document.getElementById('highlightedDoc').innerHTML=html||esc(docText);
 
   // Source breakdown
-  const breakdown = document.getElementById('sourceBreakdown');
-  breakdown.innerHTML = srcResults.map(sr => {
-    const p = pct(sr.overall);
-    const color = sr.overall >= 0.4 ? '#e53e3e' : sr.overall >= 0.2 ? '#dd6b20' : '#38a169';
-    return `
-      <div class="source-row">
-        <span class="source-name">${escHtml(sr.name)}</span>
-        <div class="progress-bar"><div class="progress-fill" style="width:${p}%;background:${color}"></div></div>
-        <span class="pct" style="color:${color}">${p}%</span>
-      </div>
-    `;
+  document.getElementById('sourceBreakdown').innerHTML=srcResults.map(sr=>{
+    const p=pct(sr.overall);
+    const color=sr.overall>=0.4?'#e53e3e':sr.overall>=0.2?'#dd6b20':'#38a169';
+    return `<div class="source-row">
+      <span class="source-name">${esc(sr.name)}</span>
+      <div class="progress-bar"><div class="progress-fill" style="width:${p}%;background:${color}"></div></div>
+      <span class="pct" style="color:${color}">${p}%</span>
+    </div>`;
   }).join('');
 
-  // Show/hide
-  const hasMatches = sentenceMax.some(s => s.score >= 0.08);
-  document.getElementById('results').style.display = hasMatches ? 'block' : 'none';
-  document.getElementById('emptyResults').style.display = hasMatches ? 'none' : 'block';
-
-  // Scroll to results
-  (document.getElementById('results').style.display === 'block'
-    ? document.getElementById('results')
-    : document.getElementById('emptyResults')
-  ).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-// ─── Tooltip on highlighted marks ─────────────────────────────────────────
+// ─── Rewrite ──────────────────────────────────────────────────────────────
+function runRewrite() {
+  if (!_lastDocText) return;
+  const btn = document.getElementById('rewriteBtn');
+  document.getElementById('rwBtnText').textContent='Rewriting…';
+  document.getElementById('rwBtnSpinner').style.display='inline-block';
+  btn.disabled=true;
+
+  setTimeout(() => {
+    try {
+      // Run up to 3 passes until score < 10%
+      let rewritten = _lastDocText;
+      let pass = 0;
+      let finalScore = 1;
+      let sentScores = _lastSentenceMax;
+
+      while (finalScore > 0.10 && pass < 3) {
+        rewritten = paraphraseText(rewritten, sentScores, _lastOpts);
+        // Recalculate
+        const result = compute(rewritten, _lastSources, _lastOpts);
+        finalScore = result.maxScore;
+        sentScores = result.sentenceMax;
+        pass++;
+      }
+
+      // Render
+      document.getElementById('rewriteOutput').textContent = rewritten;
+      const pct = Math.round(finalScore*100);
+      document.getElementById('newScoreBadge').textContent = `New score: ${pct}%`;
+      document.getElementById('newScoreBadge').style.color = pct<=10?'#276749':pct<=20?'#dd6b20':'#e53e3e';
+      document.getElementById('rewriteSummary').textContent =
+        `Similarity reduced to ${pct}% after ${pass} rewrite pass${pass>1?'es':''}. ${pct<=10?'Safe to submit.':'Consider manual review of remaining flagged sentences.'}`;
+      document.getElementById('rewriteSection').style.display='block';
+      document.getElementById('rewriteSection').scrollIntoView({behavior:'smooth',block:'start'});
+    } finally {
+      document.getElementById('rwBtnText').textContent='✨ Auto-Rewrite to <10%';
+      document.getElementById('rwBtnSpinner').style.display='none';
+      btn.disabled=false;
+    }
+  }, 60);
+}
+
+function copyRewrite() {
+  const text = document.getElementById('rewriteOutput').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent='Copied!'; btn.classList.add('copied');
+    setTimeout(()=>{ btn.textContent='Copy Text'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// ─── Tooltip ──────────────────────────────────────────────────────────────
 const tooltip = document.getElementById('tooltip');
 document.addEventListener('mouseover', e => {
-  const mark = e.target.closest('mark[data-score]');
-  if (!mark) return;
-  const src = mark.dataset.source;
-  const sc = mark.dataset.score;
-  tooltip.textContent = `${sc} match${src ? ' — ' + src : ''}`;
-  tooltip.style.opacity = '1';
+  const m=e.target.closest('mark[data-score]'); if(!m) return;
+  tooltip.textContent=`${m.dataset.score} match${m.dataset.source?' — '+m.dataset.source:''}`;
+  tooltip.style.opacity='1';
 });
 document.addEventListener('mousemove', e => {
-  tooltip.style.left = (e.clientX + 12) + 'px';
-  tooltip.style.top  = (e.clientY - 28) + 'px';
+  tooltip.style.left=(e.clientX+12)+'px'; tooltip.style.top=(e.clientY-28)+'px';
 });
-document.addEventListener('mouseout', e => {
-  if (!e.target.closest('mark[data-score]')) tooltip.style.opacity = '0';
-});
+document.addEventListener('mouseout', e => { if(!e.target.closest('mark[data-score]')) tooltip.style.opacity='0'; });
 
-// ─── Init with one empty source ───────────────────────────────────────────
+// Init
 addSource();
 </script>
 </body>
