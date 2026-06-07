@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plagiarism Checker — Sharp Pages</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #1a1a18;
+      --paper: #f5f2eb;
+      --paper-dark: #ede9e0;
+      --accent: #e07b39;
+      --accent-dark: #c4612a;
+      --muted: #6b6860;
+      --border: #d9d4c8;
+      --match-high: #e53e3e22;
+      --match-high-border: #e53e3e;
+      --match-med: #dd6b2022;
+      --match-med-border: #dd6b20;
+      --match-low: #d69e2e22;
+      --match-low-border: #d69e2e;
+      --safe: #38a16922;
+      --safe-border: #38a169;
+      --radius: 8px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    header .brand {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.01em;
+    }
+
+    header .brand span { color: var(--accent); }
+
+    header .tag {
+      font-size: 0.75rem;
+      font-weight: 500;
+      background: var(--accent);
+      color: white;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      margin-bottom: 0.4rem;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
+
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .card-header {
+      background: var(--paper-dark);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-header h2 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    .char-count {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    textarea {
+      width: 100%;
+      padding: 1rem;
+      border: none;
+      outline: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: var(--ink);
+      background: white;
+      resize: vertical;
+      min-height: 260px;
+    }
+
+    .sources-list {
+      padding: 0.75rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-height: 320px;
+      overflow-y: auto;
+    }
+
+    .source-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .source-item-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .source-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      flex: 1;
+    }
+
+    .source-item textarea {
+      min-height: 90px;
+      font-size: 0.82rem;
+      padding: 0.6rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--paper);
+    }
+
+    .source-item textarea:focus { border-color: var(--accent); background: white; }
+
+    .source-name-input {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      padding: 4px 8px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--paper);
+      color: var(--ink);
+      outline: none;
+      flex: 1;
+    }
+
+    .source-name-input:focus { border-color: var(--accent); }
+
+    .btn-remove {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 1.1rem;
+      line-height: 1;
+      padding: 2px 4px;
+      border-radius: 4px;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .btn-remove:hover { color: #e53e3e; background: #fee2e2; }
+
+    .card-footer {
+      border-top: 1px solid var(--border);
+      padding: 0.6rem 1rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.15s;
+      background: white;
+      color: var(--ink);
+    }
+
+    .btn:hover { background: var(--paper-dark); }
+
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent-dark);
+      color: white;
+      font-size: 0.95rem;
+      padding: 10px 28px;
+    }
+
+    .btn-primary:hover { background: var(--accent-dark); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .options {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .option-label input[type=checkbox] { accent-color: var(--accent); cursor: pointer; }
+
+    /* Results */
+    #results { display: none; }
+
+    .score-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .score-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.5rem;
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .score-card .label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .score-card .value {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.2rem;
+      line-height: 1;
+    }
+
+    .score-card .detail {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    .score-risk-low .value { color: #38a169; }
+    .score-risk-med .value { color: #dd6b20; }
+    .score-risk-high .value { color: #e53e3e; }
+
+    .risk-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 3px 9px;
+      border-radius: 20px;
+      margin-top: 0.4rem;
+    }
+
+    .risk-low  { background: #c6f6d5; color: #276749; }
+    .risk-med  { background: #feebc8; color: #7b341e; }
+    .risk-high { background: #fed7d7; color: #742a2a; }
+
+    .result-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .result-card-header {
+      background: var(--paper-dark);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .result-card-header h3 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+    }
+
+    .highlighted-text {
+      padding: 1.25rem;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    mark {
+      padding: 1px 0;
+      border-radius: 2px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    mark.high { background: var(--match-high); border-bottom: 2px solid var(--match-high-border); }
+    mark.med  { background: var(--match-med);  border-bottom: 2px solid var(--match-med-border); }
+    mark.low  { background: var(--match-low);  border-bottom: 2px solid var(--match-low-border); }
+
+    .source-breakdown {
+      padding: 0 1.25rem 1.25rem;
+    }
+
+    .source-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+
+    .source-row:last-child { border-bottom: none; }
+
+    .source-name { flex: 1; font-weight: 500; }
+
+    .progress-bar {
+      flex: 2;
+      height: 8px;
+      background: var(--paper-dark);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+
+    .pct { font-size: 0.82rem; font-weight: 600; min-width: 38px; text-align: right; }
+
+    .legend {
+      display: flex;
+      gap: 1.25rem;
+      padding: 0.75rem 1.25rem;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .legend-dot {
+      width: 10px; height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .dot-high { background: var(--match-high-border); }
+    .dot-med  { background: var(--match-med-border); }
+    .dot-low  { background: var(--match-low-border); }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--muted);
+    }
+
+    .empty-state .icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .empty-state p { font-size: 0.9rem; }
+
+    .spinner {
+      display: none;
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .tip {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: var(--radius);
+      padding: 0.85rem 1.1rem;
+      font-size: 0.83rem;
+      color: #1e40af;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .tip strong { font-weight: 600; }
+
+    #tooltip {
+      position: fixed;
+      background: var(--ink);
+      color: var(--paper);
+      font-size: 0.75rem;
+      padding: 5px 10px;
+      border-radius: 5px;
+      pointer-events: none;
+      white-space: nowrap;
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 0.15s;
+      max-width: 240px;
+      white-space: normal;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">Sharp<span>Pages</span></div>
+  <div class="tag">Plagiarism Checker</div>
+</header>
+
+<div class="container">
+  <h1>Research Plagiarism Checker</h1>
+  <p class="subtitle">Check your proposal against your own sources before submitting to Turnitin. All analysis runs locally — nothing leaves your browser.</p>
+
+  <div class="tip">
+    <strong>How to use:</strong> Paste your research proposal on the left, then add each source you referenced on the right (paste full text from PDFs, websites, or previous work). Hit <em>Analyse</em> to see which passages need paraphrasing or proper citation.
+  </div>
+
+  <div class="grid">
+    <!-- Left: Document -->
+    <div class="card">
+      <div class="card-header">
+        <h2>Your Document</h2>
+        <span class="char-count" id="docCount">0 words</span>
+      </div>
+      <textarea id="docText" placeholder="Paste your research proposal or essay here…" spellcheck="false"></textarea>
+    </div>
+
+    <!-- Right: Sources -->
+    <div class="card">
+      <div class="card-header">
+        <h2>Reference Sources</h2>
+        <span class="char-count" id="srcCount">0 sources</span>
+      </div>
+      <div class="sources-list" id="sourcesList"></div>
+      <div class="card-footer">
+        <button class="btn" onclick="addSource()">+ Add Source</button>
+        <button class="btn" onclick="clearSources()">Clear All</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-primary" id="analyseBtn" onclick="runAnalysis()">
+      <span id="btnText">Analyse Now</span>
+      <span class="spinner" id="btnSpinner"></span>
+    </button>
+    <div class="options">
+      <label class="option-label">
+        <input type="checkbox" id="optSelfCheck" checked />
+        Self-plagiarism check
+      </label>
+      <label class="option-label">
+        <input type="checkbox" id="optCaseSensitive" />
+        Case-sensitive
+      </label>
+      <label class="option-label">
+        <input type="checkbox" id="optStopwords" checked />
+        Ignore common words
+      </label>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="results">
+    <div class="score-row" id="scoreRow"></div>
+
+    <div class="result-card">
+      <div class="result-card-header">
+        <h3>Highlighted Document</h3>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot dot-high"></div>High similarity (&gt;70%)</div>
+          <div class="legend-item"><div class="legend-dot dot-med"></div>Medium (40–70%)</div>
+          <div class="legend-item"><div class="legend-dot dot-low"></div>Low (20–40%)</div>
+        </div>
+      </div>
+      <div class="highlighted-text" id="highlightedDoc"></div>
+    </div>
+
+    <div class="result-card">
+      <div class="result-card-header">
+        <h3>Similarity by Source</h3>
+      </div>
+      <div class="source-breakdown" id="sourceBreakdown"></div>
+    </div>
+  </div>
+
+  <div id="emptyResults" class="empty-state" style="display:none;">
+    <div class="icon">📄</div>
+    <p>No matches found. Your document appears original against the provided sources.</p>
+  </div>
+</div>
+
+<div id="tooltip"></div>
+
+<script>
+// ─── Stop words ────────────────────────────────────────────────────────────
+const STOP_WORDS = new Set([
+  'a','an','the','and','but','or','nor','for','so','yet','in','on','at','to',
+  'of','by','with','from','into','through','during','before','after','above',
+  'below','up','down','out','off','over','under','is','are','was','were','be',
+  'been','being','have','has','had','do','does','did','will','would','could',
+  'should','may','might','must','shall','can','need','dare','ought','used',
+  'this','that','these','those','it','its','i','me','my','we','our','you',
+  'your','he','his','she','her','they','them','their','what','which','who',
+  'whom','when','where','why','how','all','both','each','few','more','most',
+  'other','some','such','no','not','only','same','than','too','very','just',
+  'also','as','if','then','there','here','about','between','while','although',
+]);
+
+// ─── Tokenise ──────────────────────────────────────────────────────────────
+function tokenise(text, caseSensitive, removeStopwords) {
+  let t = caseSensitive ? text : text.toLowerCase();
+  let words = t.match(/\b[a-zA-Z']{2,}\b/g) || [];
+  if (removeStopwords) words = words.filter(w => !STOP_WORDS.has(w.toLowerCase()));
+  return words;
+}
+
+// ─── Build n-gram set ──────────────────────────────────────────────────────
+function ngrams(tokens, n) {
+  const set = new Set();
+  for (let i = 0; i <= tokens.length - n; i++) {
+    set.add(tokens.slice(i, i + n).join(' '));
+  }
+  return set;
+}
+
+// ─── Jaccard similarity ────────────────────────────────────────────────────
+function jaccard(setA, setB) {
+  if (!setA.size || !setB.size) return 0;
+  let inter = 0;
+  setA.forEach(g => { if (setB.has(g)) inter++; });
+  const union = setA.size + setB.size - inter;
+  return inter / union;
+}
+
+// ─── TF-IDF cosine similarity ──────────────────────────────────────────────
+function tfIdfSim(tokensA, tokensB) {
+  const freq = (toks) => {
+    const m = {};
+    toks.forEach(t => { m[t] = (m[t] || 0) + 1; });
+    return m;
+  };
+  const fA = freq(tokensA), fB = freq(tokensB);
+  const vocab = new Set([...Object.keys(fA), ...Object.keys(fB)]);
+  let dot = 0, magA = 0, magB = 0;
+  vocab.forEach(w => {
+    const a = fA[w] || 0, b = fB[w] || 0;
+    dot += a * b; magA += a * a; magB += b * b;
+  });
+  if (!magA || !magB) return 0;
+  return dot / (Math.sqrt(magA) * Math.sqrt(magB));
+}
+
+// ─── Sentence splitter ────────────────────────────────────────────────────
+function splitSentences(text) {
+  const raw = text.match(/[^.!?\n]+[.!?\n]+|[^.!?\n]+$/g) || [text];
+  return raw.map(s => s.trim()).filter(s => s.length > 20);
+}
+
+// ─── Find matched sentences & compute per-source score ────────────────────
+function analyseSource(docSentences, sourceSentences, srcTokens, opts) {
+  const N = 5;
+  const srcNg = ngrams(srcTokens, N);
+  const results = [];
+
+  docSentences.forEach(sent => {
+    const sentTokens = tokenise(sent, opts.caseSensitive, opts.stopwords);
+    if (sentTokens.length < 4) { results.push({ sent, score: 0 }); return; }
+    const sentNg = ngrams(sentTokens, Math.min(N, sentTokens.length));
+    const jac = jaccard(sentNg, srcNg);
+    const cos = tfIdfSim(sentTokens, srcTokens);
+    const score = 0.6 * jac + 0.4 * cos;
+    results.push({ sent, score });
+  });
+
+  return results;
+}
+
+// ─── Compute overall doc similarity ───────────────────────────────────────
+function overallSimilarity(docTokens, srcTokens) {
+  const N = 5;
+  const docNg = ngrams(docTokens, N);
+  const srcNg = ngrams(srcTokens, N);
+  const jac = jaccard(docNg, srcNg);
+  const cos = tfIdfSim(docTokens, srcTokens);
+  return 0.55 * jac + 0.45 * cos;
+}
+
+// ─── Sources management ───────────────────────────────────────────────────
+let sourceCount = 0;
+
+function addSource(name = '', text = '') {
+  sourceCount++;
+  const id = `src_${sourceCount}`;
+  const list = document.getElementById('sourcesList');
+  const item = document.createElement('div');
+  item.className = 'source-item';
+  item.id = `item_${id}`;
+  item.innerHTML = `
+    <div class="source-item-header">
+      <input class="source-name-input" id="name_${id}" placeholder="Source name (e.g. Smith 2022)" value="${escHtml(name)}" />
+      <button class="btn-remove" onclick="removeSource('item_${id}')" title="Remove">✕</button>
+    </div>
+    <textarea id="${id}" placeholder="Paste source text here (full paragraph or abstract)…" spellcheck="false">${escHtml(text)}</textarea>
+  `;
+  list.appendChild(item);
+  updateSrcCount();
+  item.querySelector('textarea').addEventListener('input', updateSrcCount);
+}
+
+function removeSource(itemId) {
+  const el = document.getElementById(itemId);
+  if (el) { el.remove(); updateSrcCount(); }
+}
+
+function clearSources() {
+  document.getElementById('sourcesList').innerHTML = '';
+  sourceCount = 0;
+  updateSrcCount();
+}
+
+function updateSrcCount() {
+  const items = document.querySelectorAll('.source-item textarea');
+  const filled = Array.from(items).filter(t => t.value.trim().length > 0).length;
+  document.getElementById('srcCount').textContent = `${filled} source${filled !== 1 ? 's' : ''}`;
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ─── Word count ───────────────────────────────────────────────────────────
+document.getElementById('docText').addEventListener('input', function () {
+  const words = this.value.trim().split(/\s+/).filter(Boolean).length;
+  document.getElementById('docCount').textContent = `${words} word${words !== 1 ? 's' : ''}`;
+});
+
+// ─── Main analysis ────────────────────────────────────────────────────────
+function runAnalysis() {
+  const docText = document.getElementById('docText').value.trim();
+  if (!docText) { alert('Please paste your document first.'); return; }
+
+  const opts = {
+    caseSensitive: document.getElementById('optCaseSensitive').checked,
+    stopwords: document.getElementById('optStopwords').checked,
+  };
+
+  // Gather sources
+  const sources = [];
+  document.querySelectorAll('.source-item').forEach(item => {
+    const textarea = item.querySelector('textarea');
+    const nameInput = item.querySelector('input');
+    const text = textarea.value.trim();
+    const name = nameInput.value.trim() || `Source ${sources.length + 1}`;
+    if (text.length > 30) sources.push({ name, text });
+  });
+
+  if (sources.length === 0) { alert('Please add at least one source to compare against.'); return; }
+
+  // Show loading state
+  const btn = document.getElementById('analyseBtn');
+  document.getElementById('btnText').textContent = 'Analysing…';
+  document.getElementById('btnSpinner').style.display = 'inline-block';
+  btn.disabled = true;
+
+  // Run in next tick so spinner renders
+  setTimeout(() => {
+    try {
+      const result = compute(docText, sources, opts);
+      renderResults(docText, result, sources);
+    } finally {
+      document.getElementById('btnText').textContent = 'Analyse Now';
+      document.getElementById('btnSpinner').style.display = 'none';
+      btn.disabled = false;
+    }
+  }, 60);
+}
+
+function compute(docText, sources, opts) {
+  const docSentences = splitSentences(docText);
+  const docTokens = tokenise(docText, opts.caseSensitive, opts.stopwords);
+
+  // Per-source similarity
+  const srcResults = sources.map(src => {
+    const srcTokens = tokenise(src.text, opts.caseSensitive, opts.stopwords);
+    const sentenceScores = analyseSource(docSentences, splitSentences(src.text), srcTokens, opts);
+    const overall = overallSimilarity(docTokens, srcTokens);
+    return { name: src.name, overall, sentenceScores };
+  });
+
+  // Sentence-level max score across all sources (for highlighting)
+  const sentenceMax = docSentences.map((sent, i) => {
+    let maxScore = 0;
+    let maxSrc = '';
+    srcResults.forEach(sr => {
+      const s = sr.sentenceScores[i];
+      if (s && s.score > maxScore) { maxScore = s.score; maxSrc = sr.name; }
+    });
+    return { sent, score: maxScore, source: maxSrc };
+  });
+
+  // Overall doc score = max across sources (weighted)
+  const combinedScore = Math.min(srcResults.reduce((a, sr) => a + sr.overall, 0), 1);
+  const maxScore = Math.max(...srcResults.map(sr => sr.overall));
+
+  return { srcResults, sentenceMax, combinedScore, maxScore };
+}
+
+function renderResults(docText, result, sources) {
+  const { srcResults, sentenceMax, combinedScore, maxScore } = result;
+
+  const pct = v => Math.round(v * 100);
+  const riskClass = v => v >= 0.4 ? 'high' : v >= 0.2 ? 'med' : 'low';
+  const riskLabel = v => v >= 0.4 ? 'High Risk' : v >= 0.2 ? 'Moderate' : 'Low Risk';
+
+  // Score cards
+  const scoreRow = document.getElementById('scoreRow');
+  const risk = riskClass(maxScore);
+  scoreRow.innerHTML = `
+    <div class="score-card score-risk-${risk}">
+      <div class="label">Overall Similarity</div>
+      <div class="value">${pct(maxScore)}%</div>
+      <div class="detail">Highest match across ${sources.length} source${sources.length > 1 ? 's' : ''}</div>
+      <span class="risk-badge risk-${risk}">${riskLabel(maxScore)}</span>
+    </div>
+    <div class="score-card">
+      <div class="label">Flagged Sentences</div>
+      <div class="value">${sentenceMax.filter(s => s.score >= 0.2).length}</div>
+      <div class="detail">out of ${sentenceMax.length} total sentences</div>
+    </div>
+    <div class="score-card">
+      <div class="label">Unique Content</div>
+      <div class="value">${Math.max(0, 100 - pct(maxScore))}%</div>
+      <div class="detail">Estimated original content</div>
+    </div>
+    <div class="score-card">
+      <div class="label">Turnitin Risk</div>
+      <div class="value" style="font-size:1.5rem">${maxScore >= 0.4 ? '⚠️ Revise' : maxScore >= 0.15 ? '⚡ Review' : '✅ Good'}</div>
+      <div class="detail">${maxScore >= 0.4 ? 'Likely flagged — paraphrase or cite' : maxScore >= 0.15 ? 'Some passages may need citing' : 'Likely to pass Turnitin'}</div>
+    </div>
+  `;
+
+  // Highlighted document
+  const highlightedDoc = document.getElementById('highlightedDoc');
+  let html = '';
+  sentenceMax.forEach(({ sent, score, source }) => {
+    const escaped = escHtml(sent);
+    if (score >= 0.4) {
+      html += `<mark class="high" data-source="${escHtml(source)}" data-score="${pct(score)}%">${escaped}</mark> `;
+    } else if (score >= 0.2) {
+      html += `<mark class="med" data-source="${escHtml(source)}" data-score="${pct(score)}%">${escaped}</mark> `;
+    } else if (score >= 0.08) {
+      html += `<mark class="low" data-source="${escHtml(source)}" data-score="${pct(score)}%">${escaped}</mark> `;
+    } else {
+      html += escaped + ' ';
+    }
+  });
+  highlightedDoc.innerHTML = html || escHtml(docText);
+
+  // Source breakdown
+  const breakdown = document.getElementById('sourceBreakdown');
+  breakdown.innerHTML = srcResults.map(sr => {
+    const p = pct(sr.overall);
+    const color = sr.overall >= 0.4 ? '#e53e3e' : sr.overall >= 0.2 ? '#dd6b20' : '#38a169';
+    return `
+      <div class="source-row">
+        <span class="source-name">${escHtml(sr.name)}</span>
+        <div class="progress-bar"><div class="progress-fill" style="width:${p}%;background:${color}"></div></div>
+        <span class="pct" style="color:${color}">${p}%</span>
+      </div>
+    `;
+  }).join('');
+
+  // Show/hide
+  const hasMatches = sentenceMax.some(s => s.score >= 0.08);
+  document.getElementById('results').style.display = hasMatches ? 'block' : 'none';
+  document.getElementById('emptyResults').style.display = hasMatches ? 'none' : 'block';
+
+  // Scroll to results
+  (document.getElementById('results').style.display === 'block'
+    ? document.getElementById('results')
+    : document.getElementById('emptyResults')
+  ).scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ─── Tooltip on highlighted marks ─────────────────────────────────────────
+const tooltip = document.getElementById('tooltip');
+document.addEventListener('mouseover', e => {
+  const mark = e.target.closest('mark[data-score]');
+  if (!mark) return;
+  const src = mark.dataset.source;
+  const sc = mark.dataset.score;
+  tooltip.textContent = `${sc} match${src ? ' — ' + src : ''}`;
+  tooltip.style.opacity = '1';
+});
+document.addEventListener('mousemove', e => {
+  tooltip.style.left = (e.clientX + 12) + 'px';
+  tooltip.style.top  = (e.clientY - 28) + 'px';
+});
+document.addEventListener('mouseout', e => {
+  if (!e.target.closest('mark[data-score]')) tooltip.style.opacity = '0';
+});
+
+// ─── Init with one empty source ───────────────────────────────────────────
+addSource();
+</script>
+</body>
+</html>
